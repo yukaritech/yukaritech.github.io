@@ -159,3 +159,18 @@ footer {
     background: var(--gradient);
     border-radius: 4px;
 }
+
+/* Fonts */
+/* 英語フォント重視 */
+.en-title {
+    font-family: 'Inter', 'Poppins', 'Roboto', 'Arial', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-style: normal; /* イタリックを解除 */
+}
+
+/* 日本語フォント重視 */
+.jp-title {
+    font-family: '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+}
