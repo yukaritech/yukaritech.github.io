@@ -3,38 +3,59 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>紫製作所</title>
+    <title>紫製作所 - やりたいことだけやっていたい</title>
+    <meta name="description" content="東北大学のものづくり学生団体です。作りたいものを見つけ次第どんどん作っています。">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style>
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
-    <nav class="navbar bg-body-tertiary fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">紫製作所</a>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cog me-2"></i>紫製作所
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link text-primary fw-bold" href="about.html">詳細を見る</a>
+            </div>
         </div>
     </nav>
 </header>
+
 <main>
     <div class="container mt-5 py-5">
-        <div class="p-4 rounded bg-body-secondary">
-            <h1 class="display-5 fst-italic">紫製作所</h1>
-            <h2 class="mb-3">やりたいことだけやっていたい</h2>
-            <p class="lead mt-5">東北大学のものづくり学生の団体です。</p>
-            <p class="lead">作りたいものを見つけ次第どんどん作っています。</p>
-            <p class="lead"><a href="about.html">さらに詳しく</a></p>        
+        <!-- ヒーローセクション -->
+        <div class="hero-section">
+            <h1 class="display-4 fst-italic mb-4">紫製作所</h1>
+            <h2 class="mb-4">やりたいことだけやっていたい</h2>
+            <p class="lead mb-3">東北大学のものづくり学生の団体です。</p>
+            <p class="lead mb-5">作りたいものを見つけ次第どんどん作っています。</p>
+            <a href="about.html" class="btn-custom">
+                <i class="fas fa-arrow-right me-2"></i>さらに詳しく
+            </a>
         </div>
-        <div class="row my-5">
-            <h2>Contact</h2>
-            <p>お問い合わせは <a href="#">yukariseisakujo@gmail.com</a> にお送りください。</p>
+        
+        <!-- コンタクトセクション -->
+        <div class="contact-section">
+            <h2><i class="fas fa-envelope me-3"></i>Contact</h2>
+            <p class="mb-0">
+                お問い合わせは 
+                <a href="mailto:yukariseisakujo@gmail.com">
+                    <i class="fas fa-paper-plane me-2"></i>yukariseisakujo@gmail.com
+                </a> 
+                にお送りください。
+            </p>
         </div>
     </div>
 </main>
-<footer class="py-3 fixed-bottom bg-body-tertiary">
-  <div class="text-center">
-    <span class="text-body-secondary">© Yukaritech Site</span>
-  </div>
+
+<footer class="py-4">
+    <div class="container text-center">
+        <span class="text-white">© 2025 紫製作所 - Yukaritech Site</span>
+    </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
