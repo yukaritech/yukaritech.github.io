@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yukaritech.github.io/sitemap.xml
