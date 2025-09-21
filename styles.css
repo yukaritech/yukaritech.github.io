@@ -75,6 +75,132 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
+/* 暗い背景のセクション用の汎用クラス */
+.dark-bg {
+    background: var(--gradient) !important;
+    color: white !important;
+}
+
+.dark-bg h1,
+.dark-bg h2,
+.dark-bg h3,
+.dark-bg h4,
+.dark-bg h5,
+.dark-bg h6,
+.dark-bg p,
+.dark-bg span,
+.dark-bg .lead {
+    color: white !important;
+}
+
+.dark-bg .text-primary {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark-bg .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* プライマリカラーの背景を持つ要素 */
+.bg-primary,
+.btn-primary {
+    color: white !important;
+}
+
+.bg-primary h1,
+.bg-primary h2,
+.bg-primary h3,
+.bg-primary h4,
+.bg-primary h5,
+.bg-primary h6,
+.bg-primary p,
+.bg-primary span {
+    color: white !important;
+}
+
+/* バッジの文字色調整 */
+.badge.bg-primary,
+.badge.bg-secondary,
+.badge.bg-danger,
+.badge.bg-dark {
+    color: white !important;
+}
+
+/* フッターの文字色 */
+footer {
+    background: var(--dark-color) !important;
+    color: white !important;
+}
+
+footer span,
+footer p,
+footer a {
+    color: white !important;
+}
+
+/* ナビゲーションブランドのグラデーション文字対策 */
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Safari対応 */
+@supports not (-webkit-background-clip: text) {
+    .navbar-brand {
+        color: var(--primary-color) !important;
+    }
+}
+
+/* プロジェクトリンクボタンの文字色 */
+.btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white !important;
+}
+
+.btn-primary i {
+    color: white !important;
+}
+
+/* 暗い色のバッジの文字色を白に統一 */
+.badge.bg-success,
+.badge.bg-warning,
+.badge.bg-info {
+    color: white !important;
+}
+
+/* コントラストが低い場合の対処 */
+.badge.bg-warning {
+    background-color: #d97d00 !important; /* より濃いオレンジに */
+    color: white !important;
+}
+
+.badge.bg-info {
+    background-color: #0891b2 !important; /* より濃い青に */
+    color: white !important;
+}
+
 /* コンタクトセクション */
 .contact-section {
     background: white;
