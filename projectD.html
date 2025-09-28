@@ -13,237 +13,196 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <!-- タイムライン図用スタイル -->
+    <!-- 統一スタイル -->
     <style>
       :root {
-        --bg1: #0e1117;
-        --bg2: #121826;
-        --brand: #8b5cf6;
-        --brand-2: #22d3ee;
-        --text: #e5e7eb;
-        --muted: #a1a1aa;
-        --card: #0b1220;
-        --accent: #1f2937;
-        --good: #34d399;
-        --warn: #fbbf24;
-        --note: #60a5fa;
+        --primary-color: #0d6efd;
+        --secondary-color: #6c757d;
+        --success-color: #198754;
+        --warning-color: #ffc107;
+        --danger-color: #dc3545;
+        --light-bg: #f8f9fa;
+        --white-bg: #ffffff;
+        --text-primary: #212529;
+        --text-secondary: #6c757d;
+        --text-muted: #6c757d;
+        --border-color: #dee2e6;
+        --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+        --border-radius: 0.375rem;
+        --border-radius-lg: 0.5rem;
+        --font-family: 'Kosugi Maru', 'Rounded Mplus 1c', 'Hiragino Maru Gothic ProN', 'Meiryo', sans-serif;
       }
-      .timeline-slide {
-        width: min(1280px, 95vw);
-        aspect-ratio: 16/9;
-        margin: 2.5vh auto;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.02),
-          rgba(255, 255, 255, 0)
-        );
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-        position: relative;
-        overflow: hidden;
-        padding: clamp(18px, 2.5vmin, 28px);
-        color: var(--text);
-        font-family: "Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto,
-          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      
+      /* 共通スタイル */
+      .project-section {
+        background: var(--white-bg);
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow);
+        padding: 2rem;
+        margin-bottom: 2rem;
       }
-      .timeline-slide header h1 {
-        margin: 0 0 0.2em 0;
-        font-weight: 900;
-        letter-spacing: 0.02em;
-        font-size: clamp(22px, 3.2vmin, 36px);
+      
+      .section-header {
+        margin-bottom: 1.5rem;
       }
-      .timeline-slide header p {
-        margin: 0.2em 0 0 0;
-        color: var(--muted);
+      
+      .section-header h3 {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      /* タイムライン専用スタイル */
+      .timeline-header h2 {
+        color: var(--primary-color);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      
+      .timeline-period {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(13, 110, 253, 0.1);
+        color: var(--primary-color);
+        border: 1px solid rgba(13, 110, 253, 0.2);
+        border-radius: 50px;
+        padding: 0.5rem 1rem;
+        margin-bottom: 2rem;
         font-weight: 600;
-        font-size: clamp(13px, 1.8vmin, 18px);
       }
-      .timeline-slide .range {
-        margin-top: 0.6em;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6em;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        background: rgba(99, 102, 241, 0.12);
-        color: #c7d2fe;
-        border: 1px solid rgba(139, 92, 246, 0.35);
-        border-radius: 999px;
-        padding: 0.4em 0.9em;
-        backdrop-filter: blur(4px);
-      }
-      .timeline-slide .range .dot {
-        width: 0.5em;
-        height: 0.5em;
-        background: var(--brand);
+      
+      .timeline-period .dot {
+        width: 8px;
+        height: 8px;
+        background: var(--primary-color);
         border-radius: 50%;
+      }
+      
+      .timeline-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        max-width: 100%;
+      }
+      
+      .phase-card {
+        background: var(--white-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+      }
+      
+      .phase-badge {
         display: inline-block;
-        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
-      }
-      .timeline-slide .timeline {
-        position: absolute;
-        left: 5%;
-        right: 5%;
-        top: 28%;
-        height: 4px;
-        background: linear-gradient(
-          90deg,
-          rgba(139, 92, 246, 0.6),
-          rgba(34, 211, 238, 0.6)
-        );
-        border-radius: 999px;
-        box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.05);
-      }
-      .timeline-slide .tick {
-        position: absolute;
-        top: -6px;
-        width: 2px;
-        height: 16px;
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 2px;
-      }
-      .timeline-slide .tick small {
-        position: absolute;
-        top: 18px;
-        transform: translateX(-50%);
-        color: var(--muted);
+        font-size: 0.875rem;
         font-weight: 700;
-        font-size: 12px;
-        white-space: nowrap;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        margin-bottom: 1rem;
       }
-      .timeline-slide .grid {
-        position: absolute;
-        left: 4%;
-        right: 4%;
-        top: 34%;
-        bottom: 6%;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: clamp(12px, 2.2vmin, 24px);
-      }
-      .timeline-slide .card {
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.05),
-          rgba(255, 255, 255, 0.02)
-        );
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: clamp(12px, 1.8vmin, 18px);
-        display: flex;
-        flex-direction: column;
-        gap: 0.6em;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-        position: relative;
-      }
-      .timeline-slide .card::before {
-        content: "";
-        position: absolute;
-        top: -18%;
-        left: 12%;
-        width: 2px;
-        height: 18%;
-        background: rgba(255, 255, 255, 0.35);
-      }
-      .timeline-slide .card h3 {
-        margin: 0;
-        font-size: clamp(16px, 2.3vmin, 22px);
-        font-weight: 800;
-        letter-spacing: 0.01em;
-      }
-      .timeline-slide .phase-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5em;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #111827;
-        background: #c7d2fe;
-        border: 1px solid rgba(99, 102, 241, 0.45);
-        padding: 0.28em 0.6em;
-        border-radius: 999px;
-      }
-      .timeline-slide .phase-1 {
-        background: #c7d2fe;
-      }
-      .timeline-slide .phase-2 {
-        background: #bbf7d0;
-      }
-      .timeline-slide .phase-3 {
-        background: #fed7aa;
-      }
-      .timeline-slide .list {
-        margin: 0.2em 0 0 0;
-        padding-left: 1.1em;
-      }
-      .timeline-slide .list li {
-        margin: 0.24em 0;
-        line-height: 1.4;
-      }
-      .timeline-slide .funds {
-        margin-top: 0.4em;
-        padding: 0.6em 0.7em;
-        border: 1px dashed rgba(255, 255, 255, 0.18);
-        border-radius: 12px;
-        background: rgba(2, 6, 23, 0.35);
-        font-size: clamp(12px, 1.6vmin, 14px);
-      }
-      .timeline-slide .funds b {
-        color: #f3f4f6;
-      }
-      .timeline-slide .goal {
-        position: absolute;
-        right: 24px;
-        top: 14px;
-        display: grid;
-        gap: 0.3em;
-        text-align: right;
-      }
-      .timeline-slide .goal .flag {
-        font-weight: 900;
-        font-size: clamp(12px, 1.6vmin, 16px);
-        color: #fef3c7;
-        background: rgba(251, 191, 36, 0.12);
-        border: 1px solid rgba(251, 191, 36, 0.4);
-        padding: 0.35em 0.6em;
-        border-radius: 999px;
-        display: inline-flex;
-        gap: 0.5em;
-        align-items: center;
-        justify-self: end;
-      }
-      .timeline-slide .goal p {
-        margin: 0;
-        color: #fde68a;
+      
+      .phase-1 { background: #e0e7ff; color: #3730a3; }
+      .phase-2 { background: #dcfce7; color: #166534; }
+      .phase-3 { background: #fed7aa; color: #9a3412; }
+      
+      .phase-card h4 {
+        color: var(--text-primary);
         font-weight: 700;
-        max-width: 38ch;
+        margin-bottom: 1rem;
       }
-      .timeline-slide footer {
-        position: absolute;
-        left: 24px;
-        bottom: 14px;
-        right: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: var(--muted);
-        font-size: 12px;
+      
+      .phase-card ul {
+        margin-bottom: 1rem;
+        padding-left: 1.2rem;
       }
-      @media print {
-        .timeline-slide {
-          width: 297mm;
-          height: 167mm;
-          aspect-ratio: auto;
-          margin: 0;
-          box-shadow: none;
-          border: none;
+      
+      .phase-card li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+      }
+      
+      .funds-info {
+        background: var(--light-bg);
+        border: 1px dashed var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+      
+      .goal-box {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      
+      .goal-box h5 {
+        color: #92400e;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      
+      .goal-box p {
+        color: #78350f;
+        margin: 0;
+        font-weight: 600;
+      }
+      
+      /* レスポンシブ対応 */
+      @media (max-width: 992px) {
+        .timeline-grid {
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         }
-        .timeline-slide .timeline {
-          box-shadow: none;
+      }
+      
+      @media (max-width: 768px) {
+        .project-section {
+          padding: 1.5rem;
+        }
+        
+        .timeline-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .phase-card {
+          padding: 1rem;
+        }
+        
+        .section-header h3 {
+          font-size: 1.5rem;
+        }
+        
+        .timeline-header h2 {
+          font-size: 1.75rem;
+        }
+        
+        .goal-box {
+          padding: 1rem;
+          margin-top: 1rem;
+        }
+      }
+      
+      @media (max-width: 576px) {
+        .project-section {
+          padding: 1rem;
+          margin-bottom: 1.5rem;
+        }
+        
+        .timeline-period {
+          font-size: 0.875rem;
+          padding: 0.375rem 0.75rem;
+        }
+        
+        .phase-badge {
+          font-size: 0.75rem;
+          padding: 0.2rem 0.5rem;
         }
       }
     </style>
@@ -253,17 +212,12 @@
       rel="stylesheet"
     />
   </head>
-  <body
-    style="
-      font-family: 'Kosugi Maru', 'Rounded Mplus 1c',
-        'Hiragino Maru Gothic ProN', 'Meiryo', sans-serif;
-    "
-  >
+  <body style="font-family: var(--font-family);">
     <!-- 元資料出典: ミマモリプロジェクトページ_v1.docx  [oai_citation:1‡ミマモリプロジェクトページ_v1.docx](file-service://file-VE2UwASHZ5p9GQMXVGkuGn) -->
 
     <header>
       <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
+        <div class="container-lg">
           <a class="navbar-brand" href="index.html">
             <img
               src="images/kote_icon1.jpg"
@@ -302,7 +256,7 @@
         </div>
 
         <!-- 目次セクション -->
-        <div class="contact-section mb-5">
+        <div class="project-section">
           <h2 class="text-primary mb-4">
             <i class="fas fa-list me-3"></i>プロジェクト目次
           </h2>
@@ -353,8 +307,7 @@
         </div>
 
         <!-- プロジェクト詳細：経緯・背景 -->
-        <div id="intro" class="project-item mb-5">
-          <div class="contact-section">
+        <div id="intro" class="project-section">
             <div class="row mb-4">
               <div class="col-12 text-center">
                 <img
@@ -372,9 +325,11 @@
             </div>
             <div class="row align-items-center">
               <div class="col-lg-7">
-                <h3 class="text-primary mb-3">
-                  <i class="fas fa-lightbulb me-2"></i>経緯・背景
-                </h3>
+                <div class="section-header">
+                  <h3>
+                    <i class="fas fa-lightbulb me-2"></i>経緯・背景
+                  </h3>
+                </div>
                 <p class="mb-3">
                   私たちはADHD当事者として、「あれ、何だっけ？」で足が止まる悔しさを何度も味わってきました。
                   学習の前に照明を点ける、机を整えるといった小さな所作で流れが途切れ、別のことに逸れてしまう——。
@@ -393,23 +348,23 @@
               </div>
               <div class="col-lg-5">
                 <img
-                  src="images/Mimamori_1.jpg"
+                  src="images/kote_icon2.jpg"
                   alt="ミマモリ 概念イメージ"
                   class="img-fluid rounded shadow"
                 />
               </div>
             </div>
-          </div>
         </div>
 
         <!-- 目的 -->
-        <div id="goals" class="project-item mb-5">
-          <div class="contact-section">
-            <div class="row align-items-center">
+        <div id="goals" class="project-section">
+          <div class="row align-items-center">
               <div class="col-lg-7">
-                <h3 class="text-primary mb-3">
-                  <i class="fas fa-bullseye me-2"></i>目的
-                </h3>
+                <div class="section-header">
+                  <h3>
+                    <i class="fas fa-bullseye me-2"></i>目的
+                  </h3>
+                </div>
                 <p class="lead mb-2">
                   <strong>毎日の「できた！」を増やす家</strong>
                 </p>
@@ -424,309 +379,178 @@
                   <li>タスクの抜け／中断：<strong>30%減</strong></li>
                   <li>着手までの時間：<strong>30%短縮</strong></li>
                 </ul>
-              </div>
-              <div class="col-lg-5">
+            </div>
+            <div class="col-lg-5">
                 <img
-                  src="images/Mimamori_2.jpg"
+                  src="images/kote_icon2.jpg"
                   alt="ミマモリ 目的イメージ"
                   class="img-fluid rounded shadow"
                 />
-              </div>
             </div>
           </div>
         </div>
 
         <!-- 活動内容（計画・資金使途） -->
-        <div id="activities" class="project-item mb-5">
-          <div class="contact-section">
-            <div class="row align-items-center">
-              <div class="col-lg-7">
-                <h3 class="text-primary mb-3">
-                  <i class="fas fa-diagram-project me-2"></i
-                  >活動内容（計画・資金使途）
-                </h3>
-                <p class="lead mb-2">
-                  <strong>朝・学び・外出の3場面を変える</strong>
-                </p>
-                <p class="mb-2">
-                  <strong>実施期間：</strong>2025年9月〜2026年夏
-                </p>
-                <p class="mb-3">
-                  まずは家庭内でつまずきやすい<strong>三つの場面（学習・服薬・外出）</strong>に焦点を当て、
-                  <strong>小型デバイス＋スマホアプリ</strong
-                  >のプロトタイプを開発し、実住環境で検証します。
-                </p>
-
-                <div class="mb-3">
-                  <h5 class="mb-2">フェーズ1：設計と試作（9〜12月）</h5>
-                  <ul>
-                    <li>必要機能の整理（照明制御・通知・チェックリスト）</li>
-                    <li>3Dプリンタでケース試作、ESP32等で基板組み立て</li>
-                    <li>BLE通信・赤外線操作の制御プログラム開発</li>
-                  </ul>
-                  <p class="small text-muted mb-0">
-                    資金使途：電子部品、3Dプリント材料、ツール購入
-                  </p>
-                </div>
-
-                <div class="mb-3">
-                  <h5 class="mb-2">フェーズ2：家庭内テストと改良（1〜4月）</h5>
-                  <ul>
-                    <li>生活リズムに沿ったパイロットテスト</li>
-                    <li>合図の強さ・タイミング・快適性の検証</li>
-                    <li>表示文言・ケース強度・配線安全性の改善</li>
-                  </ul>
-                  <p class="small text-muted mb-0">
-                    資金使途：モニター謝礼、改良用部品、記録アプリ開発
-                  </p>
-                </div>
-
-                <div class="mb-3">
-                  <h5 class="mb-2">フェーズ3：安定化とセット化（5〜7月）</h5>
-                  <ul>
-                    <li>「置くだけで使える」レベルへ、設置マニュアル整備</li>
-                    <li>
-                      玄関・机・キッチンの<strong>3点セット</strong>を複数家庭で検証
-                    </li>
-                    <li>
-                      成果をオープンソース公開（設計データ／回路図／主要コード）
-                    </li>
-                  </ul>
-                  <p class="small text-muted mb-0">
-                    資金使途：量産試作、ワークショップ開催、資料制作・広報
-                  </p>
-                </div>
-
-                <div class="alert alert-primary">
-                  <strong>最終ゴール：</strong
-                  >ご家庭に「Mimamoriセット」を置くだけで、
-                  <u>“忘れが減る”体験</u>がすぐに得られる状態に仕上げます。
-                </div>
-                <p class="text-muted mb-0">
-                  <em>Timeline: Sep 2025 – Summer 2026</em>
-                </p>
-                <!-- タイムライン図ここから -->
-                <div
-                  class="timeline-slide"
-                  role="document"
-                  aria-label="活動内容（計画・資金使途）タイムラインスライド"
-                >
-                  <header>
-                    <h1>活動内容（計画・資金使途）</h1>
-                    <p>サブタイトル：朝・学び・外出の3場面を変える</p>
-                    <div class="range" aria-label="実施期間">
-                      <span class="dot"></span>
-                      <span
-                        >実施期間：<b>2025年9月〜2026年夏</b> / Timeline:
-                        <b>Sep 2025 – Summer 2026</b></span
-                      >
-                    </div>
-                  </header>
-                  <div class="timeline" aria-hidden="true">
-                    <div class="tick" style="left: 0%">
-                      <small>2025/09</small>
-                    </div>
-                    <div class="tick" style="left: 33.33%">
-                      <small>2025/12</small>
-                    </div>
-                    <div class="tick" style="left: 66.66%">
-                      <small>2026/04</small>
-                    </div>
-                    <div class="tick" style="left: 100%">
-                      <small>2026/07</small>
-                    </div>
-                  </div>
-                  <section class="grid">
-                    <article class="card">
-                      <span class="phase-badge phase-1"
-                        >フェーズ1｜9〜12月</span
-                      >
-                      <h3>設計と試作</h3>
-                      <ul class="list">
-                        <li>
-                          必要機能の整理（<b>照明制御</b>・<b>通知</b>・<b>チェックリスト</b>）
-                        </li>
-                        <li>
-                          3Dプリンタでケース試作、<b>ESP32</b>等で基板組み立て
-                        </li>
-                        <li>BLE通信・<b>赤外線操作</b>の制御プログラム開発</li>
-                      </ul>
-                      <div class="funds">
-                        💰 <b>資金使途：</b>電子部品、3Dプリント材料、ツール購入
-                      </div>
-                    </article>
-                    <article class="card">
-                      <span class="phase-badge phase-2">フェーズ2｜1〜4月</span>
-                      <h3>家庭内テストと改良</h3>
-                      <ul class="list">
-                        <li>生活リズムに沿った<b>パイロットテスト</b></li>
-                        <li>合図の<b>強さ・タイミング・快適性</b>の検証</li>
-                        <li>表示文言・ケース強度・<b>配線安全性</b>の改善</li>
-                      </ul>
-                      <div class="funds">
-                        💰
-                        <b>資金使途：</b
-                        >モニター謝礼、改良用部品、記録アプリ開発
-                      </div>
-                    </article>
-                    <article class="card">
-                      <span class="phase-badge phase-3">フェーズ3｜5〜7月</span>
-                      <h3>安定化とセット化</h3>
-                      <ul class="list">
-                        <li>
-                          「<b>置くだけで使える</b>」レベルへ、設置マニュアル整備
-                        </li>
-                        <li>
-                          玄関・机・キッチンの<b>3点セット</b>を複数家庭で検証
-                        </li>
-                        <li>
-                          成果を<b>オープンソース公開</b>（設計データ／回路図／主要コード）
-                        </li>
-                      </ul>
-                      <div class="funds">
-                        💰
-                        <b>資金使途：</b
-                        >量産試作、ワークショップ開催、資料制作・広報
-                      </div>
-                    </article>
-                  </section>
-                  <aside class="goal" aria-label="最終ゴール">
-                    <span class="flag">🏁 最終ゴール</span>
-                    <p>
-                      ご家庭に「Mimamoriセット」を置くだけで、<br />“忘れが減る”体験がすぐに得られる状態に仕上げます。
-                    </p>
-                  </aside>
-                  <footer>
-                    <span
-                      >Mimamori
-                      プロトタイプ：小型デバイス＋スマホアプリを実住環境で検証</span
-                    >
-                    <span>© 2025</span>
-                  </footer>
-                </div>
-                <!-- タイムライン図ここまで -->
-              </div>
-              <div class="col-lg-5">
-                <img
-                  src="images/Mimamori_3.jpg"
-                  alt="ミマモリ プロトタイプ"
-                  class="img-fluid rounded shadow mb-3"
-                />
-                <div class="ratio ratio-16x9 rounded shadow">
-                  <!-- 動画がある場合は埋め込みに差し替え -->
-                  <iframe
-                    src="about:blank"
-                    title="Demo video placeholder"
-                    allowfullscreen
-                  ></iframe>
-                </div>
+        <div id="activities" class="project-section">
+          <div class="timeline-header">
+            <h2>活動内容（計画・資金使途）</h2>
+            <p class="mb-2">サブタイトル：朝・学び・外出の3場面を変える</p>
+            <div class="timeline-period">
+              <span class="dot"></span>
+              <span>実施期間：<strong>2025年9月〜2026年夏</strong> / Timeline: <strong>Sep 2025 – Summer 2026</strong></span>
+            </div>
+          </div>
+          <div class="timeline-grid">
+            <div class="phase-card">
+              <span class="phase-badge phase-1">フェーズ1｜9〜12月</span>
+              <h4>設計と試作</h4>
+              <ul>
+                <li>必要機能の整理（<strong>照明制御</strong>・<strong>通知</strong>・<strong>チェックリスト</strong>）</li>
+                <li>3Dプリンタでケース試作、<strong>ESP32</strong>等で基板組み立て</li>
+                <li>BLE通信・<strong>赤外線操作</strong>の制御プログラム開発</li>
+              </ul>
+              <div class="funds-info">
+                💰 <strong>資金使途：</strong>電子部品、3Dプリント材料、ツール購入
               </div>
             </div>
+            
+            <div class="phase-card">
+              <span class="phase-badge phase-2">フェーズ2｜1〜4月</span>
+              <h4>家庭内テストと改良</h4>
+              <ul>
+                <li>生活リズムに沿った<strong>パイロットテスト</strong></li>
+                <li>合図の<strong>強さ・タイミング・快適性</strong>の検証</li>
+                <li>表示文言・ケース強度・<strong>配線安全性</strong>の改善</li>
+              </ul>
+              <div class="funds-info">
+                💰 <strong>資金使途：</strong>モニター謝礼、改良用部品、記録アプリ開発
+              </div>
+            </div>
+            
+            <div class="phase-card">
+              <span class="phase-badge phase-3">フェーズ3｜5〜7月</span>
+              <h4>安定化とセット化</h4>
+              <ul>
+                <li>「<strong>置くだけで使える</strong>」レベルへ、設置マニュアル整備</li>
+                <li>玄関・机・キッチンの<strong>3点セット</strong>を複数家庭で検証</li>
+                <li>成果を<strong>オープンソース公開</strong>（設計データ／回路図／主要コード）</li>
+              </ul>
+              <div class="funds-info">
+                💰 <strong>資金使途：</strong>量産試作、ワークショップ開催、資料制作・広報
+              </div>
+            </div>
+          </div>
+          <div class="goal-box">
+            <h5>🏁 最終ゴール</h5>
+            <p>
+              ご家庭に「Mimamoriセット」を置くだけで、"忘れが減る"体験がすぐに得られる状態に仕上げます。
+            </p>
           </div>
         </div>
 
         <!-- 目指す成果・波及効果 -->
-        <div id="outcomes" class="project-item mb-5">
-          <div class="contact-section">
-            <div class="row align-items-center">
-              <div class="col-lg-7">
-                <h3 class="text-primary mb-3">
+        <div id="outcomes" class="project-section">
+          <div class="row align-items-center">
+            <div class="col-lg-7">
+              <div class="section-header">
+                <h3>
                   <i class="fas fa-seedling me-2"></i>目指す成果・波及効果
                 </h3>
-                <p class="lead">
-                  <strong>サブタイトル：忘れが笑顔に変わる家を広げる</strong>
-                </p>
-
-                <h5 class="mt-3">直接の成果</h5>
-                <ul class="mb-3">
-                  <li>家庭内の<strong>三場面</strong>が安定して動作</li>
-                  <li>
-                    数値での変化の可視化（タスク抜け・着手時間・自己評価）
-                  </li>
-                  <li>
-                    誰でも再現できる<strong>DIYキット</strong>の公開（3Dデータ／配線図／セットアップ手順／主要コード）
-                  </li>
-                </ul>
-
-                <h5>広がりの効果</h5>
-                <ul class="mb-3">
-                  <li>
-                    当事者発の解決策として、「暮らしの最初の一歩」を設計する考え方が広がる
-                  </li>
-                  <li>
-                    高齢者や忙しい家族にも役立つ、<strong>やさしいスマートホーム</strong>を提案
-                  </li>
-                  <li>
-                    学校・地域メイカースペースでの<strong>体験型学習（STEAM）</strong>素材として活用
-                  </li>
-                </ul>
               </div>
-              <div class="col-lg-5">
-                <img
-                  src="images/Mimamori_4.jpg"
-                  alt="ミマモリ 波及効果"
-                  class="img-fluid rounded shadow"
-                />
-              </div>
+              <p class="lead">
+                <strong>サブタイトル：忘れが笑顔に変わる家を広げる</strong>
+              </p>
+
+              <h5 class="mt-3">直接の成果</h5>
+              <ul class="mb-3">
+                <li>家庭内の<strong>三場面</strong>が安定して動作</li>
+                <li>
+                  数値での変化の可視化（タスク抜け・着手時間・自己評価）
+                </li>
+                <li>
+                  誰でも再現できる<strong>DIYキット</strong>の公開（3Dデータ／配線図／セットアップ手順／主要コード）
+                </li>
+              </ul>
+
+              <h5>広がりの効果</h5>
+              <ul class="mb-3">
+                <li>
+                  当事者発の解決策として、「暮らしの最初の一歩」を設計する考え方が広がる
+                </li>
+                <li>
+                  高齢者や忙しい家族にも役立つ、<strong>やさしいスマートホーム</strong>を提案
+                </li>
+                <li>
+                  学校・地域メイカースペースでの<strong>体験型学習（STEAM）</strong>素材として活用
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-5">
+              <img
+                src="images/kote_icon3.jpg"
+                alt="ミマモリ 波及効果"
+                class="img-fluid rounded shadow"
+              />
             </div>
           </div>
         </div>
 
         <!-- 自身・団体について -->
-        <div id="team" class="project-item mb-5">
-          <div class="contact-section">
-            <div class="row align-items-center">
-              <div class="col-lg-7">
-                <h3 class="text-primary mb-3">
+        <div id="team" class="project-section">
+          <div class="row align-items-center">
+            <div class="col-lg-7">
+              <div class="section-header">
+                <h3>
                   <i class="fas fa-users me-2"></i>自身・団体について
                 </h3>
-                <p class="mb-2">
-                  <strong>メンバー：</strong>尾本周作／佐藤夏樹
-                </p>
-                <p class="mb-3">
-                  私たち<strong>とんぺー3dp</strong>は、東北大学発の3Dプリントコミュニティです。
-                  「ないものは作る」を合言葉に、3Dプリント×電子工作／アートの実践を重ねています。
-                  勉強会やプリンタ運用ノウハウ共有、試作相談会などを継続し、
-                  <strong>課題発見→設計→試作→検証→改善</strong
-                  >を短いサイクルで回して、
-                  生活の「これがあれば助かる」を素早く形にするのが強みです。
-                </p>
-                <p class="mb-3">本プロジェクトでの担当：</p>
-                <ul class="mb-3">
-                  <li>機器の外装・設置ケース設計と3Dプリント</li>
-                  <li>
-                    小型デバイス（表示カード・赤外線送信・センサー）の組み立てと検証
-                  </li>
-                  <li>迷わず使える<strong>セットアップ手順</strong>の整備</li>
-                  <li>体験会／ワークショップ運営</li>
-                  <li>
-                    再現に必要なデータ公開（3Dデータ／配線図／手順書／主要コード）
-                  </li>
-                </ul>
-                <p class="mb-0">
-                  メンバーは工学・情報・デザインなど多様なバックグラウンドを持ち、
-                  屋内位置推定やBLEビーコン、自作生活支援デバイスの試作経験があります。
-                  「家が先にそっと動く」仕組みを、<strong>置くだけで始められる水準</strong>まで磨き、
-                  誰もが再現できる形で社会へ広げます。
-                </p>
               </div>
-              <div class="col-lg-5">
-                <img
-                  src="images/profile.png"
-                  alt="とんぺー3dp チーム"
-                  class="img-fluid rounded shadow"
-                />
-              </div>
+              <p class="mb-2">
+                <strong>メンバー：</strong>尾本周作／佐藤夏樹
+              </p>
+              <p class="mb-3">
+                私たち<strong>とんぺー3dp</strong>は、東北大学発の3Dプリントコミュニティです。
+                「ないものは作る」を合言葉に、3Dプリント×電子工作／アートの実践を重ねています。
+                勉強会やプリンタ運用ノウハウ共有、試作相談会などを継続し、
+                <strong>課題発見→設計→試作→検証→改善</strong
+                >を短いサイクルで回して、
+                生活の「これがあれば助かる」を素早く形にするのが強みです。
+              </p>
+              <p class="mb-3">本プロジェクトでの担当：</p>
+              <ul class="mb-3">
+                <li>機器の外装・設置ケース設計と3Dプリント</li>
+                <li>
+                  小型デバイス（表示カード・赤外線送信・センサー）の組み立てと検証
+                </li>
+                <li>迷わず使える<strong>セットアップ手順</strong>の整備</li>
+                <li>体験会／ワークショップ運営</li>
+                <li>
+                  再現に必要なデータ公開（3Dデータ／配線図／手順書／主要コード）
+                </li>
+              </ul>
+              <p class="mb-0">
+                メンバーは工学・情報・デザインなど多様なバックグラウンドを持ち、
+                屋内位置推定やBLEビーコン、自作生活支援デバイスの試作経験があります。
+                「家が先にそっと動く」仕組みを、<strong>置くだけで始められる水準</strong>まで磨き、
+                誰もが再現できる形で社会へ広げます。
+              </p>
+            </div>
+            <div class="col-lg-5">
+              <img
+                src="images/profile.png"
+                alt="とんぺー3dp チーム"
+                class="img-fluid rounded shadow"
+              />
             </div>
           </div>
         </div>
 
         <!-- 参加募集 / お問い合わせ -->
-        <div id="join" class="contact-section text-center">
-          <h3 class="text-primary mb-4">
-            <i class="fas fa-handshake me-2"></i
-            >一緒に“やさしいスマートホーム”を育てませんか？
-          </h3>
+        <div id="join" class="project-section text-center">
+          <div class="section-header">
+            <h3>
+              <i class="fas fa-handshake me-2"></i>一緒に"やさしいスマートホーム"を育てませんか？
+            </h3>
+          </div>
           <p class="lead mb-4">
             体験モニター、技術協力、学習連携（学校・メイカースペース）を募集しています。<br />
             興味のある方はお気軽にご連絡ください。
@@ -750,9 +574,10 @@
           background: rgba(255, 255, 255, 0.97);
           border-radius: 16px;
           box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-          padding: 32px 16px;
+          padding: 32px 40px;
           margin-bottom: 32px;
-          max-width: 680px;
+          max-width: 1100px;
+          width: 90vw;
           margin-left: auto;
           margin-right: auto;
           opacity: 0;
@@ -761,7 +586,7 @@
           position: fixed;
           left: 50%;
           transform: translateX(-50%);
-          bottom: 40px;
+          bottom: 10px;
           z-index: 9999;
         "
       >
@@ -777,7 +602,7 @@
                 詳細・ご支援は下記サイトよりお願いいたします。
               </p>
               <a
-                href="https://camp-fire.jp/"
+                href="https://www.kikin.tohoku.ac.jp/project/tomopro/2025/pj_005_2025"
                 target="_blank"
                 class="btn btn-success btn-lg mb-4"
               >
@@ -789,20 +614,42 @@
               </h4>
               <ul class="list-group mb-3">
                 <li class="list-group-item">
-                  <strong>① オリジナルステッカーセット</strong><br />
-                  プロジェクト限定デザインのステッカーをお届けします。
+                  <strong>1000円 ADHDZINE+東北大オリジナルグッズ</strong><br />
+                  ADHD当事者によるADHDの日常・ライフハックをまとめたZINEをお付けします。
                 </li>
                 <li class="list-group-item">
-                  <strong>② ミマモリ体験キット</strong><br />
-                  小型デバイス＋セットアップ手順書のDIY体験キット。
+                  <strong
+                    >5000円 ADHDZINE+ステッカー+東北大オリジナルグッズ</strong
+                  ><br />
+                  1000円での返礼品に加えてADHDステッカーをプレゼントします。
                 </li>
                 <li class="list-group-item">
-                  <strong>③ ワークショップ参加権</strong><br />
-                  実際に開発者と交流できる体験型ワークショップへのご招待。
+                  <strong
+                    >10000円
+                    ADHDZINE+ステッカー+ADHDキーホルダー+東北大オリジナルグッズ</strong
+                  ><br />
+                  5000円での返礼品に加えてキーホルダーをプレゼントします。
                 </li>
                 <li class="list-group-item">
-                  <strong>④ サンクスカード＆活動報告書</strong><br />
-                  メンバーからの感謝メッセージと進捗レポートをお送りします。
+                  <strong
+                    >30000円
+                    ADHDZINE+ステッカー+ADHDキーボード+東北大オリジナルグッズ</strong
+                  ><br />
+                  ADHDキーボードをプレゼントします
+                </li>
+                <li class="list-group-item">
+                  <strong
+                    >50000円
+                    ADHDZINE+キーホルダー+猫耳スピーカー+東北大オリジナルグッズ</strong
+                  ><br />
+                  猫耳スピーカーをプレゼントします。
+                </li>
+                <li class="list-group-item">
+                  <strong
+                    >100000円
+                    ADHDZINE+キーホルダー+元素周期表キーボード+東北大オリジナルグッズ</strong
+                  ><br />
+                  元素周期表のキーボードをプレゼントします。
                 </li>
               </ul>
               <p class="text-muted small">
