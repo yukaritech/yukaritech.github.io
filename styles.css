@@ -300,3 +300,72 @@ footer {
     font-weight: 900;
     letter-spacing: 0.1em;
 }
+
+/* ブログ用スタイル */
+.blog-container {
+    margin-bottom: 3rem;
+}
+
+.blog-post {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15) !important;
+}
+
+.blog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.blog-image:hover {
+    transform: scale(1.05);
+}
+
+.blog-content {
+    padding: 1rem 0;
+}
+
+.blog-meta {
+    font-size: 0.9rem;
+}
+
+.blog-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+.blog-title a:hover {
+    color: var(--secondary-color) !important;
+}
+
+.blog-excerpt {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.category-tags .badge {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.category-tags .badge:hover {
+    transform: scale(1.1);
+}
+
+/* ブログのレスポンシブ対応 */
+@media (max-width: 991px) {
+    .blog-image {
+        height: 250px;
+        margin-bottom: 1rem;
+    }
+    
+    .blog-content {
+        padding: 0;
+    }
+}
