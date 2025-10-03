@@ -369,3 +369,78 @@ footer {
         padding: 0;
     }
 }
+
+/* ブログ記事詳細ページ用スタイル */
+.blog-header {
+    padding: 2rem 1rem;
+}
+
+.blog-article {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.blog-article h2 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.blog-article h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.exhibition-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #fafafa;
+    border: 1px solid #e0e0e0 !important;
+}
+
+.exhibition-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.15) !important;
+}
+
+.tech-tags .badge {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.feedback-card {
+    transition: transform 0.2s ease;
+}
+
+.feedback-card:hover {
+    transform: translateX(10px);
+}
+
+.learning-points h4 {
+    color: #6c757d;
+}
+
+.article-footer {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(168, 85, 247, 0.05));
+    border-top: 3px solid var(--primary-color);
+}
+
+/* 記事詳細のレスポンシブ対応 */
+@media (max-width: 768px) {
+    .blog-header {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .blog-article {
+        font-size: 1rem;
+    }
+    
+    .blog-article h2 {
+        font-size: 1.5rem;
+    }
+    
+    .exhibition-item {
+        margin-bottom: 1rem;
+    }
+}
