@@ -1,446 +1,546 @@
+/* =====================================================================
+   紫製作所 — Yukari Tech
+   Editorial / Minimal redesign
+   Deep, restrained purple accent · generous whitespace · fine hairlines
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap');
+
 :root {
-    --primary-color: #7c3aed;
-    --secondary-color: #a855f7;
-    --accent-color: #c084fc;
-    --dark-color: #1e1b4b;
-    --light-color: #faf5ff;
-    --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    /* Ink & paper */
+    --ink:        #1b1720;   /* near-black, faint violet warmth */
+    --ink-2:      #4a4550;   /* body text */
+    --muted:      #8b848f;   /* meta, captions */
+    --paper:      #ffffff;
+    --paper-2:    #f7f5f6;   /* subtle warm section fill */
+    --paper-3:    #efeaf0;   /* faint purple-grey */
+
+    /* Deep, settled purple — the brand's 紫, matured */
+    --accent:     #472a5e;   /* deep aubergine / 菫 */
+    --accent-2:   #6d4b89;   /* hover / lighter */
+    --accent-ink: #2e1b3e;   /* darkest, for text on wash */
+    --wash:       #f4f0f7;   /* whisper of purple */
+
+    /* Lines */
+    --line:       rgba(27, 23, 32, 0.14);
+    --line-soft:  rgba(27, 23, 32, 0.08);
+
+    /* Type */
+    --serif-jp: "Shippori Mincho", "Yu Mincho", "Hiragino Mincho ProN", "MS PMincho", serif;
+    --serif-en: "Fraunces", "Times New Roman", Georgia, serif;
+    --sans: "Inter", "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+
+    /* Legacy variable names kept so older markup stays coherent */
+    --primary-color: var(--accent);
+    --secondary-color: var(--accent-2);
+    --accent-color: var(--accent-2);
+    --dark-color: var(--ink);
+    --light-color: var(--paper-2);
+    --gradient: none;
 }
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
 
 body {
-    font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
-    line-height: 1.7;
-    color: #334155;
-    background-color: #fafafa;
+    font-family: var(--sans);
+    line-height: 1.9;
+    color: var(--ink-2);
+    background-color: var(--paper);
+    font-size: 1.02rem;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-/* ナビゲーション */
+::selection { background: var(--accent); color: #fff; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--accent-2); }
+
+img { max-width: 100%; }
+
+/* Soften Bootstrap's rounding & shadows sitewide (editorial = quiet) */
+.rounded, .rounded-lg { border-radius: 3px !important; }
+.shadow, .shadow-lg, .shadow-sm { box-shadow: none !important; }
+.img-fluid.rounded, .img-fluid.rounded-lg {
+    border: 1px solid var(--line-soft);
+}
+
+/* ---------- Section eyebrow (small caps label) ---------- */
+.eyebrow {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+}
+
+/* ---------- Navigation ---------- */
 .navbar {
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+    background: rgba(255, 255, 255, 0.86) !important;
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line-soft);
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
 }
 
 .navbar-brand {
-    font-size: 1.8rem;
-    font-weight: bold;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    display: flex;
+    align-items: center;
+    font-family: var(--serif-jp);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ink) !important;
+    background: none;
+    -webkit-text-fill-color: currentColor;
 }
 
-/* メインコンテンツ */
-.hero-section {
-    background: var(--gradient);
-    color: white;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
-    padding: 4rem 3rem;
-    margin-bottom: 3rem;
-}
-
-.hero-section h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.hero-section h2 {
-    font-size: 1.8rem;
-    opacity: 0.9;
-    font-weight: 300;
-}
-
-.hero-section .lead {
-    font-size: 1.3rem;
+.navbar-brand img {
+    border-radius: 50%;
+    filter: grayscale(12%);
     opacity: 0.95;
 }
 
-.hero-section a {
-    color: white;
+.navbar-nav { gap: 1.75rem; }
+
+.navbar .nav-link {
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--ink-2) !important;
+    padding: 0.15rem 0 !important;
+    transition: color 0.25s ease;
+}
+
+.navbar .nav-link:hover { color: var(--ink) !important; }
+
+/* Active page — thin underline mark */
+.navbar .nav-link.fw-bold {
+    color: var(--ink) !important;
+    font-weight: 600 !important;
+}
+.navbar .nav-link.fw-bold::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.35rem;
+    width: 100%;
+    height: 1.5px;
+    background: var(--accent);
+}
+
+/* ---------- Layout rhythm ---------- */
+main .container { max-width: 1120px; }
+
+/* ---------- Hero (editorial, no gradient) ---------- */
+.hero-section {
+    background: none;
+    color: var(--ink);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 3.5rem 0 3rem;
+    margin-bottom: 3.5rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.hero-section h1,
+.hero-section .display-4 {
+    font-family: var(--serif-jp);
+    color: var(--ink);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+    text-shadow: none;
+}
+
+.hero-section h2 {
+    font-family: var(--serif-en);
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    opacity: 1;
+    margin-bottom: 1.75rem;
+}
+
+.hero-section p { color: var(--ink-2); }
+
+.hero-section .lead {
+    font-size: 1.15rem;
+    color: var(--ink-2);
+    opacity: 1;
+    max-width: 60ch;
+    margin: 0 auto;
+}
+.hero-section.text-center .lead { margin: 0 auto; }
+
+.hero-image img {
+    border-radius: 3px;
+    border: 1px solid var(--line);
+    box-shadow: none !important;
+}
+
+/* Lead paragraph group under hero title */
+.hero-lead p { margin-bottom: 0.35rem; }
+
+/* ---------- Buttons ---------- */
+.btn-custom,
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.8rem 2rem;
-    border-radius: 50px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    display: inline-block;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 0.72rem 1.6rem;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    margin: 1.75rem 0.75rem 0 0;
 }
 
-.hero-section a:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+/* Primary: solid deep purple */
+.btn-custom {
+    background: var(--accent);
+    color: #fff !important;
+    border: 1px solid var(--accent);
+}
+.btn-custom:hover {
+    background: var(--accent-ink);
+    border-color: var(--accent-ink);
+    color: #fff !important;
+    transform: none;
+    box-shadow: none;
 }
 
-/* 暗い背景のセクション用の汎用クラス */
-.dark-bg {
-    background: var(--gradient) !important;
-    color: white !important;
+/* Ghost: hairline outline */
+.btn-ghost {
+    background: transparent;
+    color: var(--ink) !important;
+    border: 1px solid var(--line);
+}
+.btn-ghost:hover {
+    border-color: var(--ink);
+    background: transparent;
+    color: var(--ink) !important;
 }
 
-.dark-bg h1,
-.dark-bg h2,
-.dark-bg h3,
-.dark-bg h4,
-.dark-bg h5,
-.dark-bg h6,
-.dark-bg p,
-.dark-bg span,
-.dark-bg .lead {
-    color: white !important;
-}
+/* Buttons still living inside a hero block (older markup) */
+.hero-section a.btn-custom { color: #fff !important; }
 
-.dark-bg .text-primary {
-    color: rgba(255, 255, 255, 0.9) !important;
-}
-
-.dark-bg .text-muted {
-    color: rgba(255, 255, 255, 0.7) !important;
-}
-
-/* プライマリカラーの背景を持つ要素 */
-.bg-primary,
+/* Bootstrap button overrides — quiet, letterspaced */
 .btn-primary {
-    color: white !important;
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 0.7rem 1.5rem;
+    color: #fff !important;
 }
-
-.bg-primary h1,
-.bg-primary h2,
-.bg-primary h3,
-.bg-primary h4,
-.bg-primary h5,
-.bg-primary h6,
-.bg-primary p,
-.bg-primary span {
-    color: white !important;
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--accent-ink);
+    border-color: var(--accent-ink);
+    color: #fff !important;
 }
+.btn-primary i { color: #fff !important; }
+.btn-lg { font-size: 0.95rem; }
 
-/* バッジの文字色調整 */
-.badge.bg-primary,
-.badge.bg-secondary,
-.badge.bg-danger,
-.badge.bg-dark {
-    color: white !important;
-}
-
-/* フッターの文字色 */
-footer {
-    background: var(--dark-color) !important;
-    color: white !important;
-}
-
-footer span,
-footer p,
-footer a {
-    color: white !important;
-}
-
-/* ナビゲーションブランドのグラデーション文字対策 */
-.navbar-brand {
-    font-size: 1.8rem;
-    font-weight: bold;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* Safari対応 */
-@supports not (-webkit-background-clip: text) {
-    .navbar-brand {
-        color: var(--primary-color) !important;
-    }
-}
-
-/* プロジェクトリンクボタンの文字色 */
 .btn-outline-primary {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--ink) !important;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 0.6rem 1.35rem;
+    background: transparent;
 }
-
 .btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white !important;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff !important;
 }
 
-.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white !important;
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-    color: white !important;
-}
-
-.btn-primary i {
-    color: white !important;
-}
-
-/* 暗い色のバッジの文字色を白に統一 */
-.badge.bg-success,
-.badge.bg-warning,
-.badge.bg-info {
-    color: white !important;
-}
-
-/* コントラストが低い場合の対処 */
-.badge.bg-warning {
-    background-color: #d97d00 !important; /* より濃いオレンジに */
-    color: white !important;
-}
-
-.badge.bg-info {
-    background-color: #0891b2 !important; /* より濃い青に */
-    color: white !important;
-}
-
-/* コンタクトセクション */
+/* ---------- Cards / sections ---------- */
 .contact-section {
-    background: white;
-    border-radius: 15px;
-    padding: 2.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(124, 58, 237, 0.1);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 2.75rem;
+    box-shadow: none;
 }
 
-.contact-section h2 {
-    color: var(--primary-color);
-    font-weight: bold;
-    margin-bottom: 1.5rem;
+.contact-section h2,
+.contact-section h3 {
+    font-family: var(--serif-jp);
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.25rem;
 }
 
 .contact-section a {
-    color: var(--primary-color);
+    color: var(--accent);
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+.contact-section a:hover { color: var(--accent-2); text-decoration: underline; }
+
+.contact-info { color: var(--ink-2); }
+
+/* text-primary → accent (used widely as heading/link color) */
+.text-primary { color: var(--accent) !important; }
+.text-muted { color: var(--muted) !important; }
+
+/* ---------- Tags / badges — unify the rainbow into quiet labels ---------- */
+.badge {
+    display: inline-block;
+    background: transparent !important;
+    color: var(--accent-ink) !important;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-family: var(--sans);
+    font-size: 0.68rem !important;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.34em 0.7em;
+    vertical-align: middle;
 }
 
-.contact-section a:hover {
-    color: var(--secondary-color);
-    text-decoration: underline;
+/* Every Bootstrap colour variant collapses to the same quiet tag */
+.badge.bg-primary,
+.badge.bg-secondary,
+.badge.bg-success,
+.badge.bg-danger,
+.badge.bg-warning,
+.badge.bg-info,
+.badge.bg-dark,
+.badge.bg-light {
+    background: transparent !important;
+    color: var(--accent-ink) !important;
+    border: 1px solid var(--line);
 }
 
-/* フッター */
-footer {
-    background: var(--dark-color) !important;
-    color: white;
-    position: relative;
-    margin-top: 5rem;
-}
+/* A subtly filled variant when the tag sits on the wash */
+.blog-meta .badge { background: var(--wash) !important; border-color: transparent; }
 
-/* アニメーション */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hero-section, .contact-section {
-    animation: fadeInUp 0.8s ease;
-}
-
-/* レスポンシブ */
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 2.5rem 2rem;
-    }
-    
-    .hero-section h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero-section h2 {
-        font-size: 1.5rem;
-    }
-    
-    .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-}
-
-/* スクロールバー */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--light-color);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--gradient);
-    border-radius: 4px;
-}
-
-/* Fonts */
-/* 英語フォント重視 */
-.en-title {
-    font-family: 'Inter', 'Poppins', 'Roboto', 'Arial', 'Helvetica Neue', sans-serif;
-    font-weight: bold;
-    font-style: normal; /* イタリックを解除 */
-}
-
-/* 日本語フォント重視 */
-.jp-title {
-    font-family: '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', sans-serif;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-}
-
-/* ブログ用スタイル */
-.blog-container {
-    margin-bottom: 3rem;
-}
+/* ---------- Blog list ---------- */
+.blog-container { margin-bottom: 4rem; }
 
 .blog-post {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: border-color 0.3s ease, transform 0.3s ease;
 }
-
 .blog-post:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15) !important;
+    transform: none;
+    border-color: var(--accent);
+    box-shadow: none !important;
 }
 
 .blog-image {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    border-radius: 3px;
+    border: 1px solid var(--line-soft);
+    transition: none;
+    filter: saturate(0.92);
 }
+.blog-image:hover { transform: none; }
 
-.blog-image:hover {
-    transform: scale(1.05);
-}
-
-.blog-content {
-    padding: 1rem 0;
-}
+.blog-content { padding: 0.25rem 0.5rem; }
 
 .blog-meta {
-    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
 }
 
 .blog-title {
+    font-family: var(--serif-jp);
     font-size: 1.5rem;
-    line-height: 1.3;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
 }
-
-.blog-title a:hover {
-    color: var(--secondary-color) !important;
-}
+.blog-title a { color: var(--ink) !important; }
+.blog-title a:hover { color: var(--accent) !important; }
 
 .blog-excerpt {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.85;
+    color: var(--ink-2) !important;
+    margin-bottom: 1.25rem;
 }
 
-.category-tags .badge {
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
+.category-tags .badge { cursor: pointer; }
 
-.category-tags .badge:hover {
-    transform: scale(1.1);
-}
-
-/* ブログのレスポンシブ対応 */
-@media (max-width: 991px) {
-    .blog-image {
-        height: 250px;
-        margin-bottom: 1rem;
-    }
-    
-    .blog-content {
-        padding: 0;
-    }
-}
-
-/* ブログ記事詳細ページ用スタイル */
+/* ---------- Blog article detail ---------- */
 .blog-header {
-    padding: 2rem 1rem;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2.5rem;
 }
 
 .blog-article {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.08rem;
+    line-height: 1.95;
+    color: var(--ink-2);
+    max-width: 72ch;
 }
 
 .blog-article h2 {
-    font-size: 1.8rem;
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
+    font-family: var(--serif-jp);
+    color: var(--ink);
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-top: 2.75rem;
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
 }
 
+.blog-article h3,
 .blog-article h4 {
-    font-size: 1.3rem;
+    font-family: var(--serif-jp);
+    color: var(--ink);
+    font-size: 1.28rem;
+    font-weight: 600;
+    margin-top: 2rem;
     margin-bottom: 1rem;
 }
 
+/* Project & exhibition item cards */
+.exhibition-item,
+.phase-card,
+.funds-info,
+.project-section {
+    background: var(--paper-2) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 4px;
+}
 .exhibition-item {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    background: #fafafa;
-    border: 1px solid #e0e0e0 !important;
+    transition: border-color 0.25s ease, transform 0.25s ease;
 }
-
 .exhibition-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.15) !important;
+    transform: translateY(-2px);
+    border-color: var(--accent) !important;
+    box-shadow: none !important;
 }
 
-.tech-tags .badge {
-    font-size: 0.8rem;
-    margin-bottom: 0.25rem;
-}
+.tech-tags .badge { margin: 0 0.25rem 0.35rem 0; }
 
-.feedback-card {
-    transition: transform 0.2s ease;
-}
+.feedback-card { transition: transform 0.25s ease; }
+.feedback-card:hover { transform: translateX(6px); }
 
-.feedback-card:hover {
-    transform: translateX(10px);
-}
-
-.learning-points h4 {
-    color: #6c757d;
-}
+.learning-points h4 { color: var(--muted); }
 
 .article-footer {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(168, 85, 247, 0.05));
-    border-top: 3px solid var(--primary-color);
+    background: var(--wash);
+    border-top: 1px solid var(--accent);
 }
 
-/* 記事詳細のレスポンシブ対応 */
+/* Project index links */
+.project-index li { margin-bottom: 0.65rem; }
+.project-link {
+    color: var(--ink) !important;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+.project-link:hover { color: var(--accent) !important; }
+
+/* ---------- Footer (light, editorial) ---------- */
+footer {
+    background: var(--paper-2) !important;
+    color: var(--muted) !important;
+    border-top: 1px solid var(--line);
+    margin-top: 6rem;
+    padding: 2.5rem 0;
+}
+footer span, footer p, footer a {
+    color: var(--muted) !important;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+footer a:hover { color: var(--ink) !important; }
+
+/* Any remaining .text-white on light footers stays readable */
+footer .text-white { color: var(--muted) !important; }
+
+/* Legacy white meta text (was set for the old gradient hero) — keep readable
+   now that heroes / article headers sit on light paper */
+.hero-section .text-white,
+.blog-header .text-white { color: var(--muted) !important; }
+
+/* ---------- Type utilities ---------- */
+.en-title {
+    font-family: var(--serif-en);
+    font-weight: 400;
+    font-style: italic;
+}
+.jp-title {
+    font-family: var(--serif-jp);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+/* ---------- Motion (restrained) ---------- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.hero-section, .contact-section, .blog-post {
+    animation: fadeUp 0.6s ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--paper-2); }
+::-webkit-scrollbar-thumb {
+    background: #d8d2dc;
+    border-radius: 0;
+    border: 2px solid var(--paper-2);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent-2); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991px) {
+    .blog-image { height: 240px; margin-bottom: 1.25rem; }
+    .blog-content { padding: 0; }
+}
+
 @media (max-width: 768px) {
-    .blog-header {
-        padding: 1.5rem 0.5rem;
-    }
-    
-    .blog-article {
-        font-size: 1rem;
-    }
-    
-    .blog-article h2 {
-        font-size: 1.5rem;
-    }
-    
-    .exhibition-item {
-        margin-bottom: 1rem;
-    }
+    body { font-size: 0.98rem; }
+    .hero-section { padding: 2.5rem 0 2rem; margin-bottom: 2.5rem; }
+    .contact-section { padding: 1.75rem; }
+    .navbar-nav { gap: 1.1rem; }
+    .btn-custom, .btn-ghost { margin-right: 0.5rem; }
+    .container { padding-left: 1.25rem; padding-right: 1.25rem; }
 }
